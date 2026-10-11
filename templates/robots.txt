@@ -1,0 +1,44 @@
+# seankennedy.sh robots.txt
+# Personal writing. Blocking AI/LLM training scrapers and aggressive bots.
+# Note: compliant bots honor this; abusive ones are handled at the
+# Cloudflare edge (Bot Fight Mode + AI Crawl Control) instead.
+
+# --- AI / LLM training & scraping bots ---
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: CCBot
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Bytespider
+User-agent: PerplexityBot
+User-agent: Amazonbot
+User-agent: FacebookBot
+User-agent: meta-externalagent
+User-agent: Diffbot
+User-agent: Omigili
+User-agent: OmigiliBot
+User-agent: ImagesiftBot
+User-agent: Timpibot
+User-agent: iaskspider
+Disallow: /
+
+# --- Aggressive SEO rank trackers / scrapers ---
+User-agent: SemrushBot
+User-agent: AhrefsBot
+User-agent: MJ12bot
+User-agent: DotBot
+User-agent: PetalBot
+User-agent: BLEXBot
+User-agent: SerpstatBot
+Disallow: /
+
+# --- Everyone else (search engines, real people) ---
+# /etc/ is a honeypot tarpit: compliant bots keep out, rule-breakers fall in.
+User-agent: *
+Disallow: /etc/
+Allow: /
+
+Sitemap: {{ config.base_url }}/sitemap.xml
