@@ -213,19 +213,6 @@ pre code {
     color: var(--code-ink);
 }
 
-/* ---------- about (in footer) ---------- */
-.about-text {
-    max-width: 38rem;
-    font: 400 0.9rem/1.6 var(--sans);
-    color: var(--ink);
-    margin: 0 0 0.35rem;
-}
-.credit {
-    font: 400 0.72rem var(--mono);
-    color: var(--muted);
-    margin: 0 0 1.1rem;
-}
-
 /* ---------- footer ---------- */
 .foot {
     margin-top: 3.25rem;
