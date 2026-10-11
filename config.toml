@@ -1,5 +1,7 @@
 # The URL the site will be built for
 base_url = "https://seankennedy.sh"
+title = "seankennedy.sh"
+description = "notes on things I find interesting"
 
 default_language = "en"
 
@@ -40,7 +42,7 @@ highlight_code = true
 
 # The theme to use for code highlighting.
 # See below for list of allowed values.
-highlight_theme = "ir-white"
+highlight_theme = "gruvbox-dark"
 
 # When set to "true", emoji aliases translated to their corresponding
 # Unicode emoji equivalent in the rendered Markdown files. (e.g.: :smile: => 😄)
