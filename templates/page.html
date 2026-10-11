@@ -11,9 +11,9 @@
         <path d="M26 51 h12 M27 56 h10" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" fill="none"/>
         <path class="acc" d="M32 38 V34 L27 30 L37 26 L27 22 L32 17" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
     </svg>
-    <a class="brand" href="{{ get_url(path='/') }}">{{ config.title }}</a>
+    <a class="brand" href="/">{{ config.title }}</a>
     <nav class="menu">
-        <a href="{{ get_url(path='/') }}">home</a>
+        <a href="/">home</a>
         <a href="https://github.com/kennes913">github</a>
         <a href="mailto:nom@seankennedy.sh">email</a>
     </nav>
@@ -27,7 +27,7 @@
 
 <footer class="foot">
     <div class="foot-row">
-        <a href="{{ get_url(path='/') }}">&larr; all posts</a>
+        <a href="/">&larr; all posts</a>
         <span class="human-badge">human-created</span>
         <a class="honey" href="/etc/maintenance/" rel="nofollow" aria-hidden="true" tabindex="-1">archive</a>
         <span>&copy; {{ now() | date(format='%Y') }} {{ config.title }}</span>

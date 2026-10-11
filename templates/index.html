@@ -11,7 +11,7 @@
         <h1 class="brand">{{ config.title }}<span class="cursor" aria-hidden="true"></span></h1>
     </div>
     <nav class="menu">
-        <a href="{{ get_url(path='/') }}">home</a>
+        <a href="/">home</a>
         <a href="https://github.com/kennes913">github</a>
         <a href="mailto:nom@seankennedy.sh">email</a>
     </nav>
@@ -22,7 +22,7 @@
     <ul class="post-list">
         {% for page in paginator.pages %}
         <li>
-            <a href="{{ page.permalink | safe }}">
+            <a href="{{ page.permalink | replace(from=config.base_url, to='') }}">
                 <span class="title">{{ page.title }}</span>
                 <time datetime="{{ page.date | date(format='%Y-%m-%d') }}">{{ page.date | date(format='%Y-%m-%d') }}</time>
             </a>

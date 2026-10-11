@@ -157,7 +157,7 @@ veth8712c33 Link encap:Ethernet  HWaddr D6:5E:66:25:98:DA
 
 This is related to the container we started up. Let me explain.
 
-The [veth]([https://man7.org/linux/man-pages/man4/veth.4.html) prefix is a giveaway that this interface is a virtual ethernet device. The application of veth interfaces for the container to VM relationship is spelled out in the man pages:
+The [veth](https://man7.org/linux/man-pages/man4/veth.4.html) prefix is a giveaway that this interface is a virtual ethernet device. The application of veth interfaces for the container to VM relationship is spelled out in the man pages:
 
 > "veth device pairs are useful for combining the network facilities of the kernel together in interesting ways.  A particularly interesting use case is to place one end of a veth pair in one network namespace and the other end in another network namespace, thus allowing communication between network namespaces."
 
