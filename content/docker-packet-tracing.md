@@ -1,5 +1,5 @@
 +++
-title = "surprisingly thorny docker packet tracing"
+title = "how packets leave docker"
 date = 2025-01-03
 +++
 

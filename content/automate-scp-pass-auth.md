@@ -1,5 +1,5 @@
 +++
-title = "control scp with python"
+title = "automating scp with python"
 date = 2020-03-01
 +++
 

@@ -1,5 +1,5 @@
 +++
-title = "dynamically control logger objects in python"
+title = "python logging at runtime"
 date = 2020-07-16
 +++
 

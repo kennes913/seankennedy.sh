@@ -1,5 +1,5 @@
 +++
-title = "node readiness with custom lifecycle hooks"
+title = "healthy nodes with lifecycle hooks"
 date = 2023-09-17
 +++
 
