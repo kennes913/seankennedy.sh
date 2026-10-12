@@ -1,13 +1,13 @@
 +++
-title = "control scp with python"
+title = "automating scp with python"
 date = 2020-03-01
 +++
 
-A common task in day-to-day engineering is trasferring files from host to host. The optimal tooling choice in many cases is a binary like **rsync** or **scp**. What would this look like if we used python to control these lower level binaries instead? Can you get anything out of doing this?
+A common task in day-to-day engineering is transferring files from host to host. The optimal tooling choice in many cases is a binary like **rsync** or **scp**. What would this look like if we used python to control these lower level binaries instead? Can you get anything out of doing this?
 
-*TL;DR; The short answer is yes. The 1 main benefit you get is being able to use the niceties of python's flow control to handle lower level binaries.*
+*TL;DR:* The short answer is yes. The 1 main benefit you get is being able to use the niceties of python's flow control to handle lower level binaries.*
 
-In this example, we automate password authentatication. You can do this with python using [pexpect](https://github.com/pexpect/pexpect). pexpect is _a pure python module for spawning child applications; controlling them; and responding to expected patterns in their output_. The idea is that we can use the pexpect API to control system binaries and manipulate them using python's flow control.
+In this example, we automate password authentication. You can do this with python using [pexpect](https://github.com/pexpect/pexpect). pexpect is _a pure python module for spawning child applications; controlling them; and responding to expected patterns in their output_. The idea is that we can use the pexpect API to control system binaries and manipulate them using python's flow control.
 
 Here is some sample code I've written that moves target files to a remote host:
 
@@ -15,7 +15,7 @@ Here is some sample code I've written that moves target files to a remote host:
 ...
 @log
 def put(
-    files: str, arget_host: str, dest_fpath: str, user: str, password: str, recursive=False,
+    files: str, target_host: str, dest_fpath: str, user: str, password: str, recursive=False,
 ) -> Generator[Union[str, pexpect.EOF], None, None]:
     """Create a pty process that uses SCP to move a single file or set of files
     to a remote SFTP server.
@@ -30,7 +30,7 @@ def put(
             args.append("-r")
         else:
             raise TypeError(
-                f"Recursive mode enabled but {files} is not directory. "
+                f"Recursive mode enabled but {files} is not a directory. "
                 f"Unexpected behavior will occur."
             )
 
