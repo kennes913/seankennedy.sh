@@ -1,5 +1,7 @@
 # seankennedy.sh — dev tasks (Zola runs in a container via podman)
 
+.DEFAULT_GOAL := help
+
 IMAGE := ghcr.io/getzola/zola:v0.19.2
 PORT  := 1111
 SITE  := $(CURDIR)
