@@ -213,6 +213,43 @@ pre code {
     color: var(--code-ink);
 }
 
+/* ---------- resume ---------- */
+.resume h2 {
+    margin: 2rem 0 0.75rem;
+    font: 500 0.78rem var(--mono);
+    text-transform: lowercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+}
+.resume h2::before { content: "~/"; }
+
+.resume h3 {
+    margin: 1.6rem 0 0.1rem;
+    font: 500 1.18rem/1.4 var(--mono);
+    color: var(--ink);
+}
+.resume h3 + p em, .resume h3 + p { color: var(--muted); }
+.resume p strong { color: var(--ink); }
+.resume li { margin: 0.35rem 0; }
+.resume p strong { color: var(--ink); }
+.resume li { margin: 0.35rem 0; }
+
+@media print {
+    :root {
+        --ink: #111111;
+        --muted: #555555;
+        --accent: #2f7f9c;
+        --prompt: #b05a1e;
+        --bg: #ffffff;
+        --line: #cccccc;
+        --code-bg: #f4f4f4;
+        --code-ink: #222222;
+    }
+    .cursor, .foot a[href="#"] { display: none; }
+    .site { max-width: none; padding: 0; }
+    .post-title { font-size: 1.3rem; margin-top: 1rem; }
+}
+
 /* ---------- footer ---------- */
 .foot {
     margin-top: 3.25rem;
