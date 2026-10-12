@@ -5,7 +5,7 @@ PORT  := 1111
 SITE  := $(CURDIR)
 SERVE := zola-serve
 
-.PHONY: help build serve restart stop logs resume clean
+.PHONY: help build serve restart stop logs update-resume clean
 
 help: ## show available targets
 	@grep -E '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2}'
@@ -30,7 +30,7 @@ stop: ## stop and remove the dev server
 logs: ## tail the dev server logs
 	podman logs -f $(SERVE)
 
-resume: ## refresh static/resume.pdf from the shared google doc and push
+update-resume: ## refresh static/resume.pdf from the shared google doc and push
 	./scripts/update-resume.sh
 
 clean: ## remove build output
