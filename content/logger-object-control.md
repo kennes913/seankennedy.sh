@@ -98,9 +98,7 @@ def deactivate_stream_log(loggers: typing.List) -> None:
     """Deactivate logging for a module or a set of modules."""
     for logger in loggers:
         l = logging.root.manager.loggerDict.get(logger)
-        for i, handler in enumerate(t.handlers):
-            if not isinstance(handler, logging.NullHandler):
-                l.handlers.pop(i)
+        l.handlers = [h for h in l.handlers if isinstance(h, logging.NullHandler)]
 
 # Nothing should output here
 
@@ -149,7 +147,7 @@ Now you have fine-grained logging control in your source code. All possible beca
 ```python
 In [1]: logging.root.manager.loggerDict
 Out[1]:
-{..., # other loggers ommitted
+{..., # other loggers omitted
  'pkg.foo': <Logger pkg.foo (INFO)>,
  'pkg': <logging.PlaceHolder at 0x10f20e110>,
  'pkg.bar': <Logger pkg.bar (INFO)>,
@@ -175,4 +173,4 @@ pkg.foo [<NullHandler (NOTSET)>]
 pkg.bar [<NullHandler (NOTSET)>, <StreamHandler <stdout> (NOTSET)>]
 pkg.baz [<NullHandler (NOTSET)>, <StreamHandler <stdout> (NOTSET)>]
 ```
-When a message is logged via logger.info, the logger will chain the message through registered handlers. In this case, the **pkg.bar** and **pkg.baz** loggers send the message to a **NullHandler** object and then to the **StreamHandler** object eventually printing to stdout.
+When a message is logged via logger.info, the logger hands the message to each registered handler independently. In this case, the **pkg.bar** and **pkg.baz** loggers have both a **NullHandler** (a no-op) and a **StreamHandler**, and the StreamHandler is what eventually prints to stdout.

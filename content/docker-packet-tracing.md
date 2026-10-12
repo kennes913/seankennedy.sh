@@ -17,7 +17,7 @@ PING ifconfig.me (34.160.111.145): 56 data bytes
 64 bytes from 34.160.111.145: seq=4 ttl=63 time=9.197 ms
  ```
 
-I spent a lot of time tracing packets and mostly understand their route from local container to the public internet, however, some parts of the process remain obfuscated from tracing tools. I want this post to be more of an exploratory dive into the docker TCP/IP stack and I’d like to share some things I discovered along the way.
+I spent a lot of time tracing packets and mostly understand their route from local container to the public internet; however, some parts of the process remain obfuscated from tracing tools. I want this post to be more of an exploratory dive into the docker TCP/IP stack and I’d like to share some things I discovered along the way.
 
 #### Docker Runs in a VM
 
@@ -27,7 +27,7 @@ The first discovery—and I’ll admit, it’s a bit embarrassing—is that the 
 docker run --rm -it --privileged --network=host alpine sh
 ```
 
-You're not starting a container that's able to talk to your macOS host network stack, instead you're connected to the network stack of the Docker VM. You can verify this by taking a look at the interfaces in the container above:
+You're not starting a container that's able to talk to your macOS host network stack; instead, you're connected to the network stack of the Docker VM. You can verify this by taking a look at the interfaces in the container above:
 
 ```bash
 / # echo $HOSTNAME
@@ -73,7 +73,7 @@ services1 Link encap:Ethernet  HWaddr 3E:91:24:52:5D:0D
 
 ```
 
-None of these interfaces exist on your local host. Similarly, when you run a container on the default network (no `--network=host` flag), the container's traffic isn't routed directly to the host TCP/IP stack; instead, it's traffic must first pass through the Docker VM. This leads to my next discovery.
+None of these interfaces exist on your local host. Similarly, when you run a container on the default network (no `--network=host` flag), the container's traffic isn't routed directly to the host TCP/IP stack; instead, its traffic must first pass through the Docker VM. This leads to my next discovery.
 
 #### Virtual Ethernet Device Pairs
 
@@ -157,7 +157,7 @@ veth8712c33 Link encap:Ethernet  HWaddr D6:5E:66:25:98:DA
 
 This is related to the container we started up. Let me explain.
 
-The [veth](https://man7.org/linux/man-pages/man4/veth.4.html) prefix is a giveaway that this interface is a virtual ethernet device. The application of veth interfaces for the container to VM relationship is spelled out in the man pages:
+The [veth](https://man7.org/linux/man-pages/man4/veth.4.html) prefix is a giveaway that this interface is a virtual ethernet device. The man pages spell out how veth pairs work for exactly this container-to-VM case:
 
 > "veth device pairs are useful for combining the network facilities of the kernel together in interesting ways.  A particularly interesting use case is to place one end of a veth pair in one network namespace and the other end in another network namespace, thus allowing communication between network namespaces."
 
@@ -196,7 +196,7 @@ lo        Link encap:Local Loopback
     link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff
 ```
 
-This makes sense. The address of our VM veth interface interface index was 34 and the interface index of this interface is 33, which matches veth8712c33@if33. It appears that these 2 are paired. Since it looks like **eth0** is the interface that is paired, let's send a packet directly out of eth0:
+This makes sense. The interface index of our VM veth interface was 34, and the index of this interface is 33, which matches veth8712c33@if33. It appears that these 2 are paired. Since it looks like **eth0** is the interface that is paired, let's send a packet directly out of eth0:
 
 ```bash
 / # echo $HOSTNAME
@@ -246,7 +246,7 @@ docker-desktop
 
 This also makes sense. We now know how packets are initially routed to the VM. Let's revisit some details of the ping.
 
-#### vpnkit is the VMs TCP/IP Stack
+#### vpnkit is the VM's TCP/IP Stack
 
 If you recall, the source IP of traffic coming from the container above was 172.17.0.2. Putting aside how the container gets assigned that IP, how does that packet get its source IP? Let's take a look at routes on the container:
 
@@ -268,7 +268,7 @@ docker-desktop
     link/ether d2:38:3a:e7:e9:94 brd ff:ff:ff:ff:ff:ff
 ```
 
-You'll see that docker0 is listed there. This means that this interface is a member of docker0 which indiciates that docker0 could be a bridge. Let's verify this:
+You'll see that docker0 is listed there. This means that this interface is a member of docker0 which indicates that docker0 could be a bridge. Let's verify this:
 
 ```bash
 / # echo $HOSTNAME
@@ -304,7 +304,7 @@ tcpdump: listening on docker0, link-type EN10MB (Ethernet), snapshot length 2621
     34.160.111.145 > 172.17.0.2: ICMP echo reply, id 31, seq 0, length 64
 ```
 
-This looks promising. We see the packet arrive on docker0, make a DNS request through another interface to resolve ifconfig.me's IP, and eventually receive an ICMP echo request in response.
+This looks promising. We see the packet arrive on docker0, make a DNS request through another interface to resolve ifconfig.me's IP, and eventually receive an ICMP echo reply.
 
 However, let me remind you: the packet’s destination was 34.160.111.145, not 172.17.0.1. It’s easy to mistakenly assume that docker0 is the interface used to send the packet to the internet—but that’s not the case. Let’s review our VM routes again to clarify:
 
@@ -346,6 +346,8 @@ This still doesn't explain how the packet traversed from the VM to my host and a
 ```bash
 VM -- eth0 ---> [        ] ---> mac --- en9 --> Internet
 ```
+
+The box in the middle is **vpnkit** -- a user-space networking daemon that Docker Desktop runs on your Mac.
 
 This tool was designed to prevent conflicts between VPN network modifications and guest VM network changes. Essentially, it provides a separate TCP/IP stack for the VM without requiring changes to routes, firewall rules, or other TCP/IP settings on the host. This is why no packets appear to be routed through the host system.
 
@@ -455,7 +457,7 @@ seankennedy.sh.         377     IN      A       104.21.15.12
 ;; MSG SIZE  rcvd: 92
 ```
 
-And a dig without a trace on the interface in question is useless so let's trace the serviecs1 interface for DNS traffic:
+And a dig without a trace on the interface in question is useless so let's trace the services1 interface for DNS traffic:
 
 ```bash
 / # tcpdump -n -i services1 "port 53"
