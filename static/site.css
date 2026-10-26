@@ -231,14 +231,6 @@ pre code {
 .resume h3 + p em, .resume h3 + p { color: var(--muted); }
 .resume p strong { color: var(--ink); }
 .resume li { margin: 0.35rem 0; }
-.resume p strong { color: var(--ink); }
-.resume li { margin: 0.35rem 0; }
-.resume .pdf-dl {
-    margin-top: 2rem;
-    font: 500 0.78rem var(--mono);
-    text-transform: lowercase;
-}
-.resume .pdf-dl a { color: var(--accent); }
 
 @media print {
     :root {
