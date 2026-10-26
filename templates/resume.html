@@ -21,9 +21,8 @@ resume &middot; {{ config.title }}
 </header>
 
 <main class="resume">
-    <object data="/resume.pdf" type="application/pdf">
-        <p>Your browser does not support PDFs. <a href="/resume.pdf">Download the PDF</a>.</p>
-    </object>
+    {{ page.content | safe }}
+    <p class="pdf-dl"><a href="/resume.pdf">↓ download resume (pdf)</a></p>
 </main>
 
 <footer class="foot">

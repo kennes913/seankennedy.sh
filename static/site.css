@@ -233,11 +233,12 @@ pre code {
 .resume li { margin: 0.35rem 0; }
 .resume p strong { color: var(--ink); }
 .resume li { margin: 0.35rem 0; }
-.resume object {
-    width: 100%;
-    height: 85vh;
-    border: none;
+.resume .pdf-dl {
+    margin-top: 2rem;
+    font: 500 0.78rem var(--mono);
+    text-transform: lowercase;
 }
+.resume .pdf-dl a { color: var(--accent); }
 
 @media print {
     :root {
